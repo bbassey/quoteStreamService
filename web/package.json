@@ -1,0 +1,10 @@
+{
+  "name": "quoteService",
+  "description": "A package using naive versioning",
+  "author": "Benjamin Bassey <bbassey@hotmail.com>",
+  "dependencies": {
+    "express": ">= 3.20.2",
+	"socket.io": ">= 0.9.6"
+	
+  }
+}
