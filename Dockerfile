@@ -7,6 +7,7 @@ RUN      apt-get install -y npm
 # App
 
 ADD ./web/server.js /web/server.js
+ADD ./web/index.html /web/index.html
 ADD ./web/package.json /web/package.json
 WORKDIR "/web"
 
