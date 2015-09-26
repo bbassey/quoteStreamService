@@ -49,6 +49,9 @@ app.get('/', function(req, res) {
 	res.sendfile(__dirname + '/index.html');
 });
 
+app.get('/portfolio', function(req, res) {
+	res.sendfile(__dirname + '/portfolio.html');
+});
 io.sockets.on('connection', function(socket) {
 	socket.on('ticker', function(ticker) {
 		track_ticker(socket, ticker);

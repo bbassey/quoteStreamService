@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>Porftolio</title>
+
+		<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+		  <script>
+		  $(function() {
+			var availableTags = [
+			  "BAC	Bank of America Corp	:NYSE",
+			  "C	Citigroup Inc	:NYSE",
+			  "APPL	:NASDAQ",
+			  "BABA	:NASDAQ"
+			];
+			$( "#stockName" ).autocomplete({
+			  source: availableTags
+			});
+		  });
+	 </script>
+	</head>
+
+	<body>
+	  <form class="pure-form pure-form-aligned">
+		<fieldset>
+			<div class="pure-control-group">
+				<label for="stockName">Stock</label>
+				<input id="stockName" type="text" placeholder="Stock">
+			</div>
+
+			<div class="pure-control-group">
+				<label for="quantity">Quantity</label>
+				<input id="quantity" type="number" placeholder="Number">
+			</div>
+			
+			<div class="pure-control-group">
+				<label for="total">Total</label>
+				<input id="total" type="number" placeholder="Total">
+			</div>
+			 <div class="pure-controls">
+				<button type="submit" class="pure-button pure-button-primary">Submit</button>
+			</div>
+		</fieldset>
+	  </form>
+	</body>
+</html>
+
