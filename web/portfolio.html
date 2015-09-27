@@ -11,16 +11,55 @@
 		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 		  <script>
-		  $(function() {
-			var availableTags = [
-			  "BAC	Bank of America Corp	:NYSE",
-			  "C	Citigroup Inc	:NYSE",
-			  "APPL	:NASDAQ",
-			  "BABA	:NASDAQ"
-			];
+		  $(function() {	
 			$( "#stockName" ).autocomplete({
-			  source: availableTags
+			  source: "http://localhost:4000/getStockList",
+			  minLength: 1,
+			  select: function( event, ui ) {
+			  $("#stockName").val(ui.item.value);
+			  $("#quantity").val("");
+			  $("#total").val("");
+			//  $("#stockPriceHidden").val(ui.item.value);
+			   getSingleQuote(ui.item.value);
+			  }
 			});
+			
+			$("#quantity").keyup(function() {
+				if ( $("#stockName").val() != ""){
+				var price = $("#stockPriceHidden").val();
+				var qty = $("#quantity").val();
+				
+			
+				$("#total").val(price * qty);
+				}
+			
+			});
+			
+			$( "#stockName" ).keyup(function(){
+				$("#stockinfo").empty();
+				$("#quantity").val("");
+				$("#total").val("");
+			});
+			
+			function getSingleQuote(ticker) {
+				$.ajax({
+						type:"GET",
+						crossDomain : true,
+						dataType: 'json',
+						url: 'http://localhost:4000/getSingleQuote/'+ ticker,
+						success: function (data, textStatus, XMLHttpRequest){
+							$("#stockinfo").empty();
+							$("#stockinfo").append("Price $" + data.price + " change "+ data.change + " percent change "+ data.change_percent + "% last trade "+ data.last_trade_time);
+							$("#stockPriceHidden").val(data.price);
+						},
+						error: function(a,b,c) {
+						
+							//alert(a);
+							alert(b);
+							//alert(c);
+						}
+				});
+			}
 		  });
 	 </script>
 	</head>
@@ -28,19 +67,25 @@
 	<body>
 	  <form class="pure-form pure-form-aligned">
 		<fieldset>
+		 <legend><b>Stock:<b><b id="stockinfo"></b></legend>
 			<div class="pure-control-group">
+				
 				<label for="stockName">Stock</label>
 				<input id="stockName" type="text" placeholder="Stock">
+		
+				<input id="stockPriceHidden" type="hidden">		
 			</div>
-
+			
+				
+			</div>
 			<div class="pure-control-group">
 				<label for="quantity">Quantity</label>
 				<input id="quantity" type="number" placeholder="Number">
 			</div>
 			
 			<div class="pure-control-group">
-				<label for="total">Total</label>
-				<input id="total" type="number" placeholder="Total">
+				<label for="total">Total Price</label>
+				<input id="total" type="text" placeholder="Total">
 			</div>
 			 <div class="pure-controls">
 				<button type="submit" class="pure-button pure-button-primary">Submit</button>
